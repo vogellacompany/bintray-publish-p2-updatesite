@@ -7,5 +7,8 @@ Shell script which allows to upload a p2 update-site to bintray. To run, close t
 ```  
 Afterwards switch to your p2 repository you would like to upload and run the script:
 ```
-  pushToBintray.sh username apikey repo package version
+  pushToBintray.sh username apikey owner repo package version
 ```
+
+The repository owner may be an organization, so different then the user that uploads the files.
+
