@@ -30,7 +30,12 @@ do
 if [ ! -d $f ]; then
   echo "Processing $f file..."
   # take action on each file. $f store current file name
-  curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/${PCK_NAME}/${PCK_VERSION}/$f;publish=0
+  if [[ "$f" == *content.jar ]] || [[ "$f" == *artifacts.jar ]] 
+  then
+    curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/$f;publish=0
+  else 
+    curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/${PCK_NAME}/${PCK_VERSION}/$f;publish=0
+  fi
   echo ""
 fi
 done
