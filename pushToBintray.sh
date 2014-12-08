@@ -29,8 +29,13 @@ for f in $FILES;
 do
 if [ ! -d $f ]; then
   echo "Processing $f file..."
- echo $f ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/$f;publish=0
-  curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/$f;publish=0
+  if [[ "$f" == *content.jar ]] || [[ "$f" == *artifacts.jar ]] 
+  then
+    echo "Uploading p2 metadata file directly to the repository"
+    curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/$f;publish=0
+  else 
+    curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/${PCK_NAME}/${PCK_VERSION}/$f;publish=0
+  fi
   echo ""
 fi
 done
