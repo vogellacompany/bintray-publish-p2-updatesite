@@ -1,5 +1,5 @@
 #!/bin/bash
-#Sample Usage: pushToBintray.sh username apikey owner repo package version
+#Sample Usage: pushToBintray.sh username apikey owner repo package version pathToP2Repo
 API=https://api.bintray.com
 BINTRAY_USER=$1
 BINTRAY_API_KEY=$2
@@ -7,6 +7,7 @@ BINTRAY_OWNER=$3
 BINTRAY_REPO=$4
 PCK_NAME=$5
 PCK_VERSION=$6
+PATH_TO_REPOSITORY=$7
 
 function main() {
 deploy_updatesite
@@ -19,6 +20,12 @@ echo "${BINTRAY_OWNER}"
 echo "${BINTRAY_REPO}"
 echo "${PCK_NAME}"
 echo "${PCK_VERSION}"
+echo "${PATH_TO_REPOSITORY}"
+
+if [ ! -z "$PATH_TO_REPOSITORY" ]; then
+   cd $PATH_TO_REPOSITORY
+fi
+
 
 FILES=./*
 BINARYDIR=./binary/*
