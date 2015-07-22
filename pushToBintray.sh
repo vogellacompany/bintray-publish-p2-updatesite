@@ -66,6 +66,16 @@ do
 done
 
 echo "Processing binary dir $BINARYDIR file..."
+for f in $BINARYDIR;
+do
+   # take action on each file. $f store current file name
+  echo "Processing binary: $f file..."
+  curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/${PCK_NAME}/${PCK_VERSION}/$f;publish=0
+  echo ""
+done
+
+
+
 
 echo "Publishing the new version"
 curl -X POST -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/${PCK_NAME}/${PCK_VERSION}/publish -d "{ \"discard\": \"false\" }"
