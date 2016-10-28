@@ -66,6 +66,7 @@ do
 done
 
 echo "Processing binary dir $BINARYDIR file..."
+if [ -d "$(dirname $BINARYDIR)" ]; then
 for f in $BINARYDIR;
 do
    # take action on each file. $f store current file name
@@ -73,7 +74,7 @@ do
   curl -X PUT -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} https://api.bintray.com/content/${BINTRAY_OWNER}/${BINTRAY_REPO}/${PCK_NAME}/${PCK_VERSION}/$f;publish=0
   echo ""
 done
-
+fi
 
 
 
