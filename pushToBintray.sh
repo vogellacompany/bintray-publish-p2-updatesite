@@ -23,7 +23,7 @@ echo "${PCK_VERSION}"
 echo "${PATH_TO_REPOSITORY}"
 
 if [ ! -z "$PATH_TO_REPOSITORY" ]; then
-   cd $PATH_TO_REPOSITORY
+   cd "$PATH_TO_REPOSITORY"
    if [ $? -ne 0 ]; then
      #directory does not exist
      echo $PATH_TO_REPOSITORY " does not exist"
